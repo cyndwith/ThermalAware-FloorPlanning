@@ -1,0 +1,121 @@
+# depslib dependency file v1.0
+1462091970 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\flp.c
+	<stdio.h>
+	<string.h>
+	<string.h>
+	<strings.h>
+	<stdlib.h>
+	<math.h>
+	"flp.h"
+	"npe.h"
+	"shape.h"
+	"util.h"
+	"temperature.h"
+	"temperature_block.h"
+
+1462091970 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\flp.h
+	"util.h"
+
+1462091974 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\util.h
+	<stdio.h>
+
+1462091972 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\npe.h
+	"flp.h"
+
+1462091974 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\shape.h
+	"flp.h"
+	"npe.h"
+
+1462091974 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\temperature.h
+	"flp.h"
+	"util.h"
+	<mkl_cblas.h>
+	<mkl_lapack.h>
+	<acml.h>
+	<vecLib/cblas.h>
+	<vecLib/clapack.h>
+	<sunperf.h>
+
+1462091974 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\temperature_block.h
+	"temperature.h"
+
+1462686461 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\hotspot.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	<math.h>
+	"flp.h"
+	"package.h"
+	"temperature.h"
+	"temperature_block.h"
+	"temperature_grid.h"
+	"util.h"
+	"hotspot.h"
+
+1462091972 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\package.h
+	"flp.h"
+	"util.h"
+	"temperature.h"
+
+1462091974 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\temperature_grid.h
+	"temperature.h"
+
+1462686471 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\hotspot.h
+	"util.h"
+
+1446671344 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\main.cpp
+	<iostream>
+
+1462091972 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\package.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	<math.h>
+	"package.h"
+	"temperature.h"
+	"flp.h"
+	"util.h"
+
+1463286119 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\temperature.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	<math.h>
+	"temperature.h"
+	"temperature_block.h"
+	"temperature_grid.h"
+	"flp.h"
+	"util.h"
+
+1462091974 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\temperature_block.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	"temperature_block.h"
+	"flp.h"
+	"util.h"
+
+1462091974 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\temperature_grid.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	<math.h>
+	"temperature_grid.h"
+	"flp.h"
+	"util.h"
+
+1462091974 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\hotspot\util.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<strings.h>
+	<assert.h>
+	"util.h"
+

@@ -16,7 +16,7 @@
 #include "hotspot.h"
 #include "util.h"
 #include "TAfloorplan.h"
-#define NUM_BLOCKS 30
+#define NUM_BLOCKS 1000
 
 struct hspBlock{
     char name[100];

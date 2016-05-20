@@ -37,7 +37,7 @@ block  *readBlocks(char fileName[],block *blockData)
   }
   while(i<noBlocks)
   {
-      infile>>w>>h>>p;
+      //infile>>w>>h>>p;
       /* Assign data values to blocks */
       cout<<blockData[i].blockNo<<endl;
       cout<<blockData[i].width<<endl;
@@ -49,6 +49,8 @@ block  *readBlocks(char fileName[],block *blockData)
   infile.close();
   return blockData;
 }
+
+
 
 
 void writeFloorPlan(char fileName[],flpBlock *flpBlockData)
@@ -77,9 +79,6 @@ void writePower(char fileName[],flpBlock *flpBlockData)
       for(int i=0;i<noBlocks;i++){
             myfile <<"Block-"<<flpBlockData[i].blockNo;
             myfile <<"\t"<<flpBlockData[i].power;
-            //myfile <<"\t"<<flpBlockData[i].height;
-            //myfile <<"\t"<<flpBlockData[i].x;
-            //myfile <<"\t"<<flpBlockData[i].y;
             myfile <<"\n";
       }
     myfile.close();
@@ -87,6 +86,42 @@ void writePower(char fileName[],flpBlock *flpBlockData)
   else cout << "Unable to open file";
 }
 
+void writeSeqPair(char fileName[],sequencePair *seqPair)
+{
+  ofstream myfile (fileName);
+  if (myfile.is_open())
+  {
+      for(int i=0;i<noBlocks;i++){
+            myfile<<"\t"<<seqPair->posSeq[i].blockNo;
+            myfile<<"\t"<<seqPair->negSeq[i].blockNo;
+            myfile <<"\n";
+      }
+    myfile.close();
+  }
+  else cout << "Unable to open file";
+}
 
+void readSeqPair(char fileName[],flpBlock *flpBlockData,sequencePair *seqPair)
+{
+  ifstream infile(fileName);
+  if(!infile)
+        cout<<"cannot open file!"<<endl;
+  int pos,neg,i;
+  cout<<"\nRead results pos :"<<endl;
+  if (infile.is_open())
+  {
+      i=0;
+      for(int i=0;i<NUM_BLOCKS;i++)
+      {
+          infile>>pos>>neg;
+          seqPair->posSeq[i] = flpBlockData[pos];
+          flpBlockData[pos].posSeq_Location = i;
+          seqPair->negSeq[i] = flpBlockData[neg];
+          flpBlockData[neg].negSeq_Location = i;
+          cout<<" "<<pos;
+      }
+      infile.close();
+  }
+}
 
 #endif // IOFILE_H_INCLUDED

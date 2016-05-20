@@ -1,0 +1,79 @@
+# depslib dependency file v1.0
+1463646873 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\binpack.cpp
+	"MaxRectsBinPack.h"
+	<cstdio>
+	<fstream>
+	<iostream>
+
+1463631006 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\maxrectsbinpack.h
+	<vector>
+	"Rect.h"
+
+1463631008 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\rect.h
+	<vector>
+	<cassert>
+	<cstdlib>
+
+1463631006 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\guillotinebinpack.cpp
+	<utility>
+	<iostream>
+	<limits>
+	<cassert>
+	<cstring>
+	<cmath>
+	"GuillotineBinPack.h"
+
+1463631006 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\guillotinebinpack.h
+	<vector>
+	"Rect.h"
+
+1463631006 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\maxrectsbinpack.cpp
+	<utility>
+	<iostream>
+	<limits>
+	<cassert>
+	<cstring>
+	<cmath>
+	"MaxRectsBinPack.h"
+
+1463631007 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\rect.cpp
+	<utility>
+	"Rect.h"
+	"clb/Algorithm/Sort.h"
+
+1463631008 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\shelfbinpack.cpp
+	<utility>
+	<iostream>
+	<cassert>
+	<cstring>
+	"ShelfBinPack.h"
+
+1463631008 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\shelfbinpack.h
+	"GuillotineBinPack.h"
+	"Rect.h"
+	<vector>
+
+1463631008 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\shelfnextfitbinpack.cpp
+	<utility>
+	<iostream>
+	<cassert>
+	<cstring>
+	"ShelfNextFitBinPack.h"
+
+1463631008 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\shelfnextfitbinpack.h
+	<vector>
+
+1463631008 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\skylinebinpack.cpp
+	<utility>
+	<iostream>
+	<limits>
+	<cassert>
+	<cstring>
+	<cmath>
+	"SkylineBinPack.h"
+
+1463631008 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\binpacking\skylinebinpack.h
+	<vector>
+	"Rect.h"
+	"GuillotineBinPack.h"
+

@@ -6,7 +6,9 @@
 using namespace std;
 
 int noBlocks;
-double Gamma;
+double Gamma,flpH,flpW;
+double maxBlockTempValue=0;
+
 
 class block{
 public:
@@ -16,9 +18,9 @@ public:
     void print(){
         //cout<<"Block Parameter:"<<endl;
         cout<<"block No :"<<blockNo;
-        cout<<"\twidth :"<<width;
-        cout<<"\theight :"<<height;
-        cout<<"\tpower :"<<power<<endl;
+        cout<<"\t\twidth :"<<width;
+        cout<<"\t\theight :"<<height;
+        cout<<"\t\tpower :"<<power<<endl;
     }
 };
 
@@ -29,14 +31,14 @@ public:
     double x,y;
     void print(){
         //cout<<"Block Parameter: ";
-        cout<<"block No :"<<blockNo;
+        cout<<"Block# :"<<blockNo;
         //cout<<"\twidth :"<<width;
         //cout<<"\theight :"<<height;
-        cout<<"\tpower :"<<power;
-        cout<<"\tx :"<<x;
-        cout<<"\ty :"<<y;
-        cout<<"\tposSeqInd :"<<posSeq_Location;
-        cout<<"\tnegSeqInd :"<<negSeq_Location<<endl;
+        //cout<<"\t\tpower :"<<power;
+        cout<<"\t\tx :"<<x;
+        cout<<"\t\ty :"<<y;
+        cout<<"\t\tposSeqInd :"<<posSeq_Location;
+        cout<<"\t\tnegSeqInd :"<<negSeq_Location<<endl;
     }
     void update(flpBlock B){
         blockNo = B.blockNo;
@@ -54,14 +56,21 @@ class sequencePair{
 public:
     flpBlock posSeq[NUM_BLOCKS];
     flpBlock negSeq[NUM_BLOCKS];
+    void update(flpBlock *flpBlockData)
+    {
+        for(int i=0;i<NUM_BLOCKS;i++)
+        {
+            posSeq[flpBlockData[i].posSeq_Location] = flpBlockData[i];
+            negSeq[flpBlockData[i].negSeq_Location] = flpBlockData[i];
+        }
+    }
 };
 
 
 int myrandom (int i) { return std::rand()%i;}
 
 
-
-flpBlock *initFloorplan(block *blockData)
+flpBlock *initFloorplan(block *blockData,sequencePair *seqPair)
 {
     flpBlock *flpBlockData=(flpBlock *)malloc(noBlocks*sizeof(flpBlock));
     double xAxis=0,yAxis=0;
@@ -77,20 +86,64 @@ flpBlock *initFloorplan(block *blockData)
         xAxis = xAxis + blockData[i].width;
         //yAxis = yAxis + blockData[i].height;
     }
+    //sequencePair seqPair;
+    //int a[NUM_BLOCKS],b[NUM_BLOCKS];
+    /* original sequence pair */
+    int a[] = {0,2,3,4,5,6,7,8,9,10,26,21,28,29,27,22,13,14,19,17,11,15,16,20,18,12,25,23,24,1};
+    int b[] = {1,0,2,21,26,22,27,28,29,11,17,19,13,14,12,18,20,15,16,23,24,25,5,6,7,8,9,10,3,4};
+    /* Modified sequence pair */
+    //int a[] = {15,16,20,24,9,0,19,13,14,23,10,2,3,4,5,6,7,8,26,21,28,29,27,22,17,11,18,12,25,1};
+    //int b[] = {1,0,2,21,26,22,27,28,29,11,17,12,18,25,5,6,7,8,3,4,20,24,9,15,16,19,23,13,10,14};
+    //int a[] = {23,24,0,2,3,4,5,6,7,8,9,10,26,21,28,29,27,22,13,14,19,17,11,15,16,20,18,12,25,1};
+    //int b[] = {1,0,2,21,26,22,27,28,29,11,17,19,13,14,12,18,20,15,16,25,5,6,7,8,9,10,3,4,23,24};
+    //cout<<"\n Random Sequence: "<<endl;
+    /*for(int i=0;i<NUM_BLOCKS;i++){
+        a[i]=i;
+        b[i]=i;
+    }*/
+
+    //random_shuffle(&a[0], &a[NUM_BLOCKS]);
+    //random_shuffle(&b[0], &b[NUM_BLOCKS]);
+    /*cout<<"\n Random Sequence: "<<endl;
+    for(int i=0;i<NUM_BLOCKS;i++)
+        cout<<" "<<a[i];
+    cout<<endl;
+    for(int i=0;i<NUM_BLOCKS;i++)
+        cout<<" "<<b[i];
+    cout<<endl;*/
+    for(int i=0;i<NUM_BLOCKS;i++){
+        /*
+        flpBlockData[i].posSeq_Location = i;
+        seqPair->posSeq[i] = flpBlockData[i];
+        seqPair->posSeq[i].posSeq_Location = i;
+
+        flpBlockData[NUM_BLOCKS-1-i].negSeq_Location = i;
+        seqPair->negSeq[i] = flpBlockData[NUM_BLOCKS-1-i];
+        seqPair->negSeq[i].negSeq_Location = i;
+        */
+        flpBlockData[a[i]].posSeq_Location = i;
+        seqPair->posSeq[i] = flpBlockData[a[i]];
+        seqPair->posSeq[i].posSeq_Location = i;
+
+        flpBlockData[b[i]].negSeq_Location = i;
+        seqPair->negSeq[i] = flpBlockData[b[i]];
+        seqPair->negSeq[i].negSeq_Location = i;
+    }
+    //return flpBlockData;
     return flpBlockData;
 }
 
 double maxBlockTemp(double *steady_temp)
 {
-    double maxBlockTemp=0;
+    maxBlockTempValue=0;
     for(int i=0;i<NUM_BLOCKS;i++)
-        if(steady_temp[i]>maxBlockTemp)maxBlockTemp=steady_temp[i];
-    return maxBlockTemp;
+        if(steady_temp[i]>maxBlockTempValue)maxBlockTempValue=steady_temp[i];
+    return maxBlockTempValue;
 }
 
 
 /*function definitions */
-void wLCS(flpBlock *S1,flpBlock *S2,double *weights,double *pos)
+double wLCS(flpBlock *S1,flpBlock *S2,double *weights,double *pos)
 {
     double lengths[NUM_BLOCKS],t_span;
     flpBlock tempBlock;
@@ -113,6 +166,8 @@ void wLCS(flpBlock *S1,flpBlock *S2,double *weights,double *pos)
             }
         }
     }
+    flpW = lengths[NUM_BLOCKS-1];
+    return flpW;
     //return seqPair;
 }
 
@@ -160,34 +215,70 @@ flpBlock *flpToSequencePair(flpBlock *flpBlockData,sequencePair *seqPair)
 
 flpBlock *randomMove(flpBlock *flpBlockData,sequencePair *seqPair)
 {
-    int a[NUM_BLOCKS],b[NUM_BLOCKS],c[3];
+    int a[NUM_BLOCKS],b[NUM_BLOCKS],c,temp1,temp2;
     for(int i=0;i<NUM_BLOCKS;i++){
         a[i]=i;
         b[i]=i;
     }
-    for(int i=0;i<3;i++)c[i]=i;
+    //for(int i=0;i<2;i++)c[i]=i;
     random_shuffle(&a[0], &a[NUM_BLOCKS]);
     random_shuffle(&b[0], &b[NUM_BLOCKS]);
-    random_shuffle(&c[0],&c[3])
-    int x = a[0];
-    int y = b[0];
+    //random_shuffle(&c[0],&c[1]);
+    int x,maxT=0;
     for(int i=0;i<NUM_BLOCKS;i++){
-        /*
-        flpBlockData[i].posSeq_Location = i;
-        seqPair->posSeq[i] = flpBlockData[i];
-        seqPair->posSeq[i].posSeq_Location = i;
+        if(maxT < steady_temp[i]){
+            x = i;
+            maxT = steady_temp[i];
+            //cout<<"i: "<<x<<" : "<<steady_temp[i];
+        }
 
-        flpBlockData[NUM_BLOCKS-1-i].negSeq_Location = i;
-        seqPair->negSeq[i] = flpBlockData[NUM_BLOCKS-1-i];
-        seqPair->negSeq[i].negSeq_Location = i;
-        */
-        flpBlockData[a[i]].posSeq_Location = i;
-        seqPair->posSeq[i] = flpBlockData[a[i]];
-        seqPair->posSeq[i].posSeq_Location = i;
+    }
+    //cout<<endl;
+    //x = rand()%30;//a[0]; /* random number between 0-29 */
+    int y = rand()%30;//b[0]; /* random number between 0-29 */
+    c = rand()%3;
+    /* based on case decide the move */
+    //cout<<"Switch case: "<<a[0]<<" "<<b[0]<<" "<<c[0]<<endl;
+    switch(c){
+    case 0: {    /* swap positive sequence */
+                temp1 = flpBlockData[x].posSeq_Location; //temp2 =  (temp1+1)%30;//flpBlockData[y].posSeq_Location;
+                temp2 =  flpBlockData[y].posSeq_Location;
+                flpBlockData[x].posSeq_Location = temp2;
+                flpBlockData[seqPair->posSeq[temp2].blockNo].posSeq_Location = temp1;
+                seqPair->posSeq[temp1] = flpBlockData[seqPair->posSeq[temp2].blockNo];
+                seqPair->posSeq[temp2] = flpBlockData[x];
+            }
+            break;
+    case 1: {
+                // swap negative  sequence location
+                temp1 = flpBlockData[x].negSeq_Location;//temp2 = (temp1+1)%30;//flpBlockData[y].posSeq_Location;
+                temp2 = flpBlockData[y].posSeq_Location;
+                flpBlockData[x].negSeq_Location = temp2;
+                flpBlockData[seqPair->negSeq[temp2].blockNo].negSeq_Location = temp1;
+                seqPair->negSeq[temp1] = flpBlockData[seqPair->negSeq[temp2].blockNo];
+                seqPair->negSeq[temp2] = flpBlockData[x];
+            }
+            break;
+    case 2: {   /* swap both positive and negative location */
+                temp1 = flpBlockData[x].posSeq_Location;
+                temp2 = flpBlockData[y].posSeq_Location;
+                flpBlockData[x].posSeq_Location = temp2;
+                flpBlockData[y].posSeq_Location = temp1;
 
-        flpBlockData[b[i]].negSeq_Location = i;
-        seqPair->negSeq[i] = flpBlockData[b[i]];
-        seqPair->negSeq[i].negSeq_Location = i;
+                seqPair->posSeq[temp1] = flpBlockData[y];
+                seqPair->posSeq[temp2] = flpBlockData[x];
+
+                temp1 = flpBlockData[x].negSeq_Location;
+                temp2 = flpBlockData[y].negSeq_Location;
+                flpBlockData[x].negSeq_Location = temp2;
+                flpBlockData[y].negSeq_Location = temp1;
+
+                seqPair->negSeq[temp1] = flpBlockData[y];
+                seqPair->negSeq[temp2] = flpBlockData[x];
+            }
+            break;
+    default :   /* do nothing */
+                break;
     }
     return flpBlockData;
 }
@@ -195,6 +286,7 @@ flpBlock *randomMove(flpBlock *flpBlockData,sequencePair *seqPair)
 
 flpBlock *sequencePairToFloorplan(sequencePair *seqPair,flpBlock *flpBlockData){
     //for(int i=0;i<NUM_BLOCKS;i++)
+    cout<<"Initial Solution for Floorplan !"<<endl;
     double x_pos[NUM_BLOCKS],y_pos[NUM_BLOCKS],weights[NUM_BLOCKS];
     double W=0,H=0;
     flpBlock revPosSeq[NUM_BLOCKS];
@@ -202,7 +294,7 @@ flpBlock *sequencePairToFloorplan(sequencePair *seqPair,flpBlock *flpBlockData){
     for(int i=0;i<NUM_BLOCKS;i++)
         weights[i] = flpBlockData[i].width;
 
-    wLCS(seqPair->posSeq,seqPair->negSeq,weights,x_pos); /* use 1 for x - co-ordinate */
+    flpW = wLCS(seqPair->posSeq,seqPair->negSeq,weights,x_pos); /* use 1 for x - co-ordinate */
     for(int i=0;i<NUM_BLOCKS;i++)
         weights[i] = flpBlockData[i].height;
 
@@ -211,13 +303,7 @@ flpBlock *sequencePairToFloorplan(sequencePair *seqPair,flpBlock *flpBlockData){
          revPosSeq[NUM_BLOCKS-1-i]=seqPair->posSeq[i];
     }
 
-    wLCS(revPosSeq,seqPair->negSeq,weights,y_pos); /* use for y co-ordinate */
-
-    for(int i=0;i<NUM_BLOCKS;i++)
-    {
-        W += x_pos[i];
-        H += y_pos[i];
-    }
+    flpH = wLCS(revPosSeq,seqPair->negSeq,weights,y_pos); /* use for y co-ordinate */
 
     int index_X,index_Y;
     for(int i=0;i<NUM_BLOCKS;i++)
@@ -225,51 +311,32 @@ flpBlock *sequencePairToFloorplan(sequencePair *seqPair,flpBlock *flpBlockData){
         flpBlockData[i].x = x_pos[i];
         flpBlockData[i].y = y_pos[i];
     }
+     cout<<"Initial Solution for Floorplan !"<<endl;
     return flpBlockData;
 }
 
 
+sequencePair *shelfAlgo(sequencePair *seqPair,float area){
 
-
-/*
-horGraph *horGraphCons(sequencePair seqPair){
-    spBlock pBlock;
-    spBlock nBlock;
-    int j=0;
-    for(int i=0;i<NUM_BLOCKS;i++)
-    {
-        pBlock = seqPair.posSeq[i];
-        nBlock = seqPair.negSeq[i];
-        while(pBlock.blockNo != nBlock.blockNo){
-            if(nBlock.posSeq_Location < pBlock.posSeq_Location){
-                // Add to horizontal graph (nBlock);
+    /* sort blocks by width */
+    double maxWidth = sqrt(double(area);
+    flpBlock tempBlock;
+    float accWidth=0;
+    for(int i=0;i<noBlocks;i++){
+        accWidth+=seqPair->posSeq[i].width;
+        if(accWidth > maxWidth ){
+            accWidth = 0;
+            /* (noBlocks - i) chunk to the left most */
+            for(int k=i;k<noBlocks;k++){
+                tempBlock = seqPair->posSeq[k];
+                for(int j=k;j>1;j--){
+                    seqPair->posSeq[j]=seqPair[j-1];
+                }
+                seqPair->posSeq[0] = tempBlock;
             }
-            j++;
-            nBlock = seqPair.negSeq[j];
         }
     }
-
+    return seqPair;
 }
-
-
-
-verGraph *verGraphCons(){
-    spBlock pBlock;
-    spBlock nBlock;
-    int j=0;
-    for(int i=0;i<NUM_BLOCKS;i++)
-    {
-        pBlock = seqPair.posSeq[i];
-        nBlock = seqPair.negSeq[i];
-        while(pBlock.posSeq_Location != nBlock.posSeq_Location){
-            if(nBlock.posSeq_Location > pBlock.posSeq_Location){
-                // Add to horizontal graph (nBlock);
-            }
-            j++;
-            nBlock = seqPair.negSeq[j];
-        }
-    }
-
-}*/
 
 #endif // FLOORPLAN_H_INCLUDED

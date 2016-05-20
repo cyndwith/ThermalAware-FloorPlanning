@@ -30,14 +30,14 @@ thermal_config_t default_thermal_config(void)
 	/* heat sink specs	*/
 	config.c_convec = 140.4;			/* convection capacitance in J/K */
 	config.r_convec = 0.1;				/* convection resistance in K/W	*/
-	config.s_sink = 60e-3;				/* heatsink side in m	*/
+	config.s_sink = 600e-3;				/* heatsink side in m	*/
 	config.t_sink = 6.9e-3; 			/* heatsink thickness  in m	*/
 	config.k_sink = 400.0; /* heatsink thermal conductivity in W/(m-K) */
 	config.p_sink = 3.55e6; /* heatsink specific heat in J/(m^3-K) */
 
 
 	/* heat spreader specs	*/
-	config.s_spreader = 30e-3;			/* spreader side in m	*/
+	config.s_spreader = 300e-3;			/* spreader side in m	*/
 	config.t_spreader = 1e-3;			/* spreader thickness in m	*/
 	config.k_spreader = 400.0; /* heat spreader thermal conductivity in W/(m-K) */
 	config.p_spreader = 3.55e6; /* heat spreader specific heat in J/(m^3-K) */
@@ -610,7 +610,7 @@ void steady_state_temp(RC_model_t *model, double *power, double *temp)
 //	else if (model->type == GRID_MODEL)
 //		steady_state_temp_grid(model->grid, power, temp);
 //	else fatal("unknown model type\n");
-
+    //printf("\n Steady State Temp\n");
 	int leak_convg_true = 0;
 	int leak_iter = 0;
 	int n, base=0;
@@ -624,8 +624,10 @@ void steady_state_temp(RC_model_t *model, double *power, double *temp)
 	double d_max=0.0;
 
 	if (model->type == BLOCK_MODEL) {
+        //printf("inside block\n");
 		n = model->block->flp->n_units;
 		if (model->config->leakage_used) { // if considering leakage-temperature loop
+            //printf("leakage block\n");
 			d_temp = hotspot_vector(model);
 			temp_old = hotspot_vector(model);
 			power_new = hotspot_vector(model);
@@ -636,10 +638,12 @@ void steady_state_temp(RC_model_t *model, double *power, double *temp)
 					power_new[i] = power[i] + calc_leakage(model->config->leakage_mode,blk_height,blk_width,temp[i]);
 					temp_old[i] = temp[i]; //copy temp before update
 				}
+                //printf("steady block\n");
 				steady_state_temp_block(model->block, power_new, temp); // update temperature
 				d_max = 0.0;
 				for(i=0; i < n; i++) {
 					d_temp[i] = temp[i] - temp_old[i]; //temperature increase due to leakage
+					//printf("%.4f\n",d_temp[i]);
 					if (d_temp[i]>d_max) {
 						d_max = d_temp[i];
 					}

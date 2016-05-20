@@ -20,10 +20,10 @@
 #include "util.h"
 
 /* input and output files	*/
-static char *flp_file= "output.flp";		    /* has the floorplan configuration	*/
+static char *flp_file= "Results/output.flp";//"output.flp";		    /* has the floorplan configuration	*/
 static char *init_file = NULLFILE;		        /* initial temperatures	from file	*/
-static char *steady_file= "steady_temp.txt";	/* steady state temperatures to file	*/
-static char *power_in = "output.pwr";
+static char *steady_file= "Results/steady_temp.txt";	/* steady state temperatures to file	*/
+static char *power_in = "Results/output.pwr";
 /* floorplan	*/
 static flp_t *flp;
 /* hotspot temperature model	*/
@@ -66,7 +66,7 @@ void sim_init()
 	/* allocate and initialize the RC model	*/
 	model = alloc_RC_model(&config, flp);
 	populate_R_model(model, flp);
-	populate_C_model(model, flp);
+	//populate_C_model(model, flp);
 
 	/* allocate the temp and power arrays	*/
 	/* using hotspot_vector to internally allocate any extra nodes needed	*/
@@ -87,13 +87,6 @@ void sim_init()
 	else	/* no input file - use init_temp as the common temperature	*/
 		set_temp(model, temp, model->config->init_temp);
 
-    //printf("\tfinished sim_init()\n");
-    /* set the steady state power values */
-    //fpPWR = fopen (power_in, "r");
-	//if (!fpPWR) {
-	//	sprintf(str, "error opening file %s\n", file);
-	//	fatal(str);
-	//}
 }
 
 /*
@@ -114,36 +107,37 @@ void sim_main()
 		/* set the per cycle power values as returned by Wattch/power simulator	*/
 		if (model->type == BLOCK_MODEL)
         {
-			power[get_blk_index(flp, "Block-0")] +=  1.44;	// set the power numbers instead of '0'
-			power[get_blk_index(flp, "Block-1")] +=  7.37;
-			power[get_blk_index(flp, "Block-2")] +=  1.44;
-			power[get_blk_index(flp, "Block-3")] +=  8.27;
-			power[get_blk_index(flp, "Block-4")] +=  14.3;
-			power[get_blk_index(flp, "Block-5")] +=  1.516666667;
-			power[get_blk_index(flp, "Block-6")] +=  1.516666667;
-			power[get_blk_index(flp, "Block-7")] +=  1.516666667;
-			power[get_blk_index(flp, "Block-8")] +=  0.059666667;
-			power[get_blk_index(flp, "Block-9")] +=  0.059666667;
-			power[get_blk_index(flp, "Block-10")] +=  0.059666667;
-			power[get_blk_index(flp, "Block-11")] +=  0.62;
-			power[get_blk_index(flp, "Block-12")] +=  0.62;
-			power[get_blk_index(flp, "Block-13")] +=  0.19375;
-			power[get_blk_index(flp, "Block-14")] +=  0.19375;
-			power[get_blk_index(flp, "Block-15")] +=  0.19375;
-			power[get_blk_index(flp, "Block-16")] +=  0.19375;
-			power[get_blk_index(flp, "Block-17")] +=  0.665;
-			power[get_blk_index(flp, "Block-18")] +=  0.665;
-			power[get_blk_index(flp, "Block-19")] +=  0.02355;
-			power[get_blk_index(flp, "Block-20")] +=  0.02355;
-			power[get_blk_index(flp, "Block-21")] +=  1.07;
-			power[get_blk_index(flp, "Block-22")] +=  0.365;
-			power[get_blk_index(flp, "Block-23")] +=  2.585;
-			power[get_blk_index(flp, "Block-24")] +=  2.585;
-			power[get_blk_index(flp, "Block-25")] +=  7.7;
-			power[get_blk_index(flp, "Block-26")] +=  0.0354;
-			power[get_blk_index(flp, "Block-27")] +=  3.46;
-			power[get_blk_index(flp, "Block-28")] +=  0.2;
-			power[get_blk_index(flp, "Block-29")] +=  0.2;
+            //printf("\n Model->type == BLOCK_MODEL \n");
+			power[get_blk_index(flp, "Block-0")] =  1.44;	// set the power numbers instead of '0'
+			power[get_blk_index(flp, "Block-1")] =  7.37;
+			power[get_blk_index(flp, "Block-2")] =  1.44;
+			power[get_blk_index(flp, "Block-3")] =  8.27;
+			power[get_blk_index(flp, "Block-4")] =  14.3;
+			power[get_blk_index(flp, "Block-5")] =  1.516666667;
+			power[get_blk_index(flp, "Block-6")] =  1.516666667;
+			power[get_blk_index(flp, "Block-7")] =  1.516666667;
+			power[get_blk_index(flp, "Block-8")] =  0.059666667;
+			power[get_blk_index(flp, "Block-9")] =  0.059666667;
+			power[get_blk_index(flp, "Block-10")] =  0.059666667;
+			power[get_blk_index(flp, "Block-11")] =  0.62;
+			power[get_blk_index(flp, "Block-12")] =  0.62;
+			power[get_blk_index(flp, "Block-13")] =  0.19375;
+			power[get_blk_index(flp, "Block-14")] =  0.19375;
+			power[get_blk_index(flp, "Block-15")] =  0.19375;
+			power[get_blk_index(flp, "Block-16")] =  0.19375;
+			power[get_blk_index(flp, "Block-17")] =  0.665;
+			power[get_blk_index(flp, "Block-18")] =  0.665;
+			power[get_blk_index(flp, "Block-19")] =  0.02355;
+			power[get_blk_index(flp, "Block-20")] =  0.02355;
+			power[get_blk_index(flp, "Block-21")] =  1.07;
+			power[get_blk_index(flp, "Block-22")] =  0.365;
+			power[get_blk_index(flp, "Block-23")] =  2.585;
+			power[get_blk_index(flp, "Block-24")] =  2.585;
+			power[get_blk_index(flp, "Block-25")] =  7.7;
+			power[get_blk_index(flp, "Block-26")] =  0.0354;
+			power[get_blk_index(flp, "Block-27")] =  3.46;
+			power[get_blk_index(flp, "Block-28")] =  0.2;
+			power[get_blk_index(flp, "Block-29")] =  0.2;
 			// ... more functional units ...
 		/* for the grid model, set the power numbers for all power dissipating layers	*/
 		} else
@@ -172,13 +166,15 @@ void sim_main()
 			if (model->type == BLOCK_MODEL) {
 				for (i = 0; i < flp->n_units; i++) {
 					/* for steady state temperature calculation	*/
-					overall_power[i] += power[i];
+					overall_power[i] = power[i];
 					/*
 					 * 'power' array is an aggregate of per cycle numbers over
 					 * the sampling_intvl. so, compute the average power
 					 */
 					//power[i] /= (elapsed_time * model->config->base_proc_freq);
 				}
+				/*for(int i=0;i<NUM_BLOCKS;i++)
+                    printf("%d\t\t%.2f\n",i,overall_power[i]);*/
 			/* for the grid model, account for all the power dissipating layers	*/
 			} else
 				for(i=0, base=0; i < model->grid->n_layers; i++) {
@@ -229,6 +225,8 @@ void sim_main()
 		}
 	//}
 	//printf("\tFinished...sim_main()\n");
+	//for(int i=0;i<NUM_BLOCKS;i++)
+    //            printf("%d\t\t%.2f\n",i,overall_power[i]);
 }
 
 /*
@@ -256,8 +254,8 @@ void sim_exit()
 
 	/* get steady state temperatures */
 	steady_state_temp(model, overall_power, steady_temp);
-    /*for(int i=0;i<NUM_BLOCKS;i++)
-                printf("%d\t\t%.2f\n",i,steady_temp[i]);*/
+    //for(int i=0;i<NUM_BLOCKS;i++)
+      //          printf("%d\t\t%.2f\n",i,overall_power[i]);
 	/* dump temperatures if needed	*/
 	if (strcmp(model->config->steady_file, NULLFILE))
 		dump_temp(model, steady_temp, model->config->steady_file);
@@ -269,6 +267,8 @@ void sim_exit()
 		strcmp(model->config->grid_steady_file, NULLFILE))
 		dump_steady_temp_grid(model->grid, model->config->grid_steady_file);
 
+
+    first_call = TRUE;
 	/* cleanup */
 	delete_RC_model(model);
 	free_flp(flp, FALSE);

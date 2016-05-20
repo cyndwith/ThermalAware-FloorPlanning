@@ -397,6 +397,8 @@ void set_internal_power_block(block_model_t *model, double *power)
  */
 void steady_state_temp_block(block_model_t *model, double *power, double *temp)
 {
+    int i;
+    //printf("I am right!");
 	if (!model->r_ready)
 		fatal("R model not ready\n");
 
@@ -407,7 +409,11 @@ void steady_state_temp_block(block_model_t *model, double *power, double *temp)
 	 * find temperatures (spd flag is set to 1 by the same argument
 	 * as mentioned in the populate_R_model_block function)
 	 */
+	 //for(i=0;i<30;i++)
+       // printf("%.4f ",power[i]);
 	lusolve(model->lu, model->n_nodes, model->p, power, temp, 1);
+	//for(i=0;i<30;i++)
+      //  printf("%.4f ",temp[i]);
 }
 
 /* compute the slope vector dy for the transient equation

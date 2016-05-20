@@ -17,7 +17,7 @@
 #include "util.h"
 
 /* input and output files	*/
-static char *flp_file="output.txt";		/* has the floorplan configuration	*/
+static char *flp_file="best_floorplan.flp"; //"output.flp";		/* has the floorplan configuration	*/
 static char *init_file="temp.txt";		/* initial temperatures	from file	*/
 static char *steady_file="steady_temp.txt";	/* steady state temperatures to file	*/
 
@@ -59,11 +59,11 @@ void sim_init()
 	/* allocate and initialize the RC model	*/
 	model = alloc_RC_model(&config, flp);
 	populate_R_model(model, flp);
-	populate_C_model(model, flp);
+	//populate_C_model(model, flp);
 
 	/* allocate the temp and power arrays	*/
 	/* using hotspot_vector to internally allocate any extra nodes needed	*/
-	temp = hotspot_vector(model);
+	//temp = hotspot_vector(model);
 	power = hotspot_vector(model);
 	steady_temp = hotspot_vector(model);
 	overall_power = hotspot_vector(model);

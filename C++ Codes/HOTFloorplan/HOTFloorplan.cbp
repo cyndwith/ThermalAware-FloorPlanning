@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/HOTFloorplan" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
+				<Option output="HOTFloorplan" prefix_auto="1" extension_auto="1" />
+				<Option object_output="C:/Users/cyndwith/Documents/GitHub/ThermalAware-FloorPlanning/C++ Codes/HOTFloorplan/.objs" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -32,6 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="RCutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="flp.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -47,6 +50,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="npe.h" />
+		<Unit filename="package.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="package.h" />
+		<Unit filename="shape.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="sim-template.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -281,7 +281,7 @@
 	<vector>
 	"hotspot.h"
 
-1463088052 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\floorplan.cpp
+1463625325 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\floorplan.cpp
 	<iostream>
 	<stdio.h>
 	<stdlib.h>
@@ -290,6 +290,9 @@
 	<ctype.h>
 	<math.h>
 	<algorithm>
+	<tgmath.h>
+	<time.h>
+	<ctime>
 	"flp.h"
 	"package.h"
 	"temperature.h"
@@ -303,7 +306,7 @@
 	"floorplan.h"
 	"sequencePair.h"
 
-1462843478 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\hotspot.h
+1463621724 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\hotspot.h
 	<stdio.h>
 	<stdlib.h>
 	<assert.h>
@@ -440,7 +443,7 @@
 	"flp.h"
 	"util.h"
 
-1462753544 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\temperature.c
+1463297079 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\temperature.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -452,7 +455,7 @@
 	"flp.h"
 	"util.h"
 
-1462862712 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\temperature_block.c
+1463297244 source:c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\temperature_block.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -518,16 +521,16 @@
 
 1462749587 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\tafloorplan.h
 
-1462956464 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\iofile.h
+1463625292 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\iofile.h
 	<fstream>
 	<iostream>
 	"floorplan.h"
 
-1462955872 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\floorplan.h
+1463623890 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\floorplan.h
 	"sequencePair.h"
 	<iostream>
 
-1462958519 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\sim-template.h
+1463599552 c:\users\cyndwith\documents\github\thermalaware-floorplanning\c++ codes\tafloorplanner\sim-template.h
 	<string.h>
 	"temperature.h"
 	"temperature_grid.h"
